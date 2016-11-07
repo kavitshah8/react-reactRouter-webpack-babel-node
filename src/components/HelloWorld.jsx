@@ -8,7 +8,6 @@ class HellowWorld extends Component {
                 <div className="w-400 mx-auto">
                     Hello World ##
                 </div>
-
                 <img className="w-200 mx-auto" src="/images/react.png"></img>
             </div>
         );

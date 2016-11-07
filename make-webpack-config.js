@@ -1,7 +1,8 @@
-var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+var path = require('path');
 var validator = require('webpack-validator');
 
 module.exports = function (options) {
@@ -24,10 +25,13 @@ module.exports = function (options) {
 	}
 
 	var config = {
-		entry: addEntryPoint('./src/Router.jsx'),
-		output: {
+		entry: {
+            app: addEntryPoint('./src/Router.jsx'),
+            vendor: ['react', 'react-router', 'react-dom']
+        },
+        output: {
 			path: options.devServer ? path.join( __dirname, 'public', 'js') : 'public',
-			filename: 'build.js',
+			filename: '[name]-[chunkhash].js',
 			publicPath: '',
 		},
 		module: {
@@ -37,10 +41,23 @@ module.exports = function (options) {
 			]
 		},
 		plugins: [
-			new HtmlWebpackPlugin({ filename: 'index.html', template: path.join( __dirname, 'src', 'index.tpl.html') }),
-			new CopyWebpackPlugin([
-				{from: path.join(__dirname, 'src', 'assets', 'images'), to: 'images'}
-			])
+            new CommonsChunkPlugin({
+                name: 'commons',
+                filename: 'commons-[hash].js',
+                chunks: ['vendor', 'app']
+            }),
+
+            new HtmlWebpackPlugin({
+                filename: 'index.html',
+                hash: true,
+                template: path.join( __dirname, 'src', 'index.tpl.html'),
+                chunks: ['commons', 'app']
+            }),
+
+            new CopyWebpackPlugin([{
+                from: path.join(__dirname, 'src', 'assets', 'images'),
+                to: 'images'
+            }])
 		].concat(plugins),
 	    devtool: options.devtool,
 	    debug: options.debug
