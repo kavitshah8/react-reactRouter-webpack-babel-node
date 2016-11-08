@@ -27,7 +27,7 @@ module.exports = function (options) {
 		entry: addEntryPoint('./src/Router.jsx'),
 		output: {
 			path: options.devServer ? path.join( __dirname, 'public', 'js') : 'public',
-			filename: 'build.js',
+			filename: 'app.js',
 			publicPath: '',
 		},
 		module: {
@@ -37,10 +37,14 @@ module.exports = function (options) {
 			]
 		},
 		plugins: [
-			new HtmlWebpackPlugin({ filename: 'index.html', template: path.join( __dirname, 'src', 'index.tpl.html') }),
-			new CopyWebpackPlugin([
-				{from: path.join(__dirname, 'src', 'assets', 'images'), to: 'images'}
-			])
+			new HtmlWebpackPlugin({
+                filename: 'index.html',
+                template: path.join( __dirname, 'src', 'index.tpl.html')
+            }),
+			new CopyWebpackPlugin([{
+                from: path.join(__dirname, 'src', 'assets', 'images'),
+                to: 'images'
+            }])
 		].concat(plugins),
 	    devtool: options.devtool,
 	    debug: options.debug
