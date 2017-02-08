@@ -6,7 +6,7 @@
   "author": "Kavit Shah",
   "license": "ISC",
   "scripts": {
-    "start": "webpack -w & node server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.4.5",
