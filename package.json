@@ -6,7 +6,8 @@
   "author": "Kavit Shah",
   "license": "ISC",
   "scripts": {
-    "start": "webpack -w & node server.js"
+    "build": "webpack -w & node server.js",
+    "start": "webpack-dev-server"
   },
   "dependencies": {
     "express": "^4.4.5",
@@ -19,8 +20,10 @@
     "babel-core": "^5.8.33",
     "babel-loader": "^5.3.3",
     "css-loader": "^0.22.0",
+    "react-hot-loader": "^1.3.0",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.3",
+    "webpack-dev-server": "^1.16.2",
     "webpack-validator": "^2.2.9"
   }
 }
