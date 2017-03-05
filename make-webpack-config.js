@@ -37,7 +37,8 @@ module.exports = function (options) {
             noParse: /resolve(__dirname, 'node_modules')/,
 			rules: [
 				{ test: /\.js|jsx$/, exclude: /node_modules/, use: ['react-hot-loader', 'babel-loader'] },
-				{ test: /\.css$/, use: ['style-loader', 'css-loader'] },
+                { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+				{ test: /\.json$/, use: 'json-loader' },
                 { test: /\.(jpg|png|svg)$/, exclude: /(node_modules)/, use: 'url-loader?limit=8192&name=./img/[hash].[ext]'}
 			]
 		},
